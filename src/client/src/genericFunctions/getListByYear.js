@@ -6,7 +6,7 @@ export const getListByYear = (year, fullList) => {
       if (item?.properties?.FIRE_YEAR === year) {
         result.push(item);
       }
-    }); 
+    });
   }
   return result;
-}
+};

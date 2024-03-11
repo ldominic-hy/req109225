@@ -4,40 +4,35 @@ import './App.css';
 
 import { getListByYear } from './genericFunctions';
 
-const filterType = {
-  all: 'ALL',
-  geoDesc: 'GEOGRAPHIC_DESCRIPTION',
-  fireStatusAndFireCause: 'FIRE_STATUS_AND_FIRE_CAUSE',
-};
-
-const getData = (setFilterList, filterBy, year, value1, value2) => {
+const getData = (setFilterList, year, fireStatus, fireCause, geoDesc) => {
   let url;
-  switch (filterBy) {
-    case filterType.all:
-      url = 'https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&outputFormat=application%2Fjson';
-      break;
-    case filterType.fireStatusAndFireCause:
-      url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=FIRE_CAUSE%3C%3E%27${value2}%27%20AND%20FIRE_STATUS=%27${value1}%27&outputFormat=application%2Fjson`;
-      break;
-    case filterType.geoDesc:
-      url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=GEOGRAPHIC_DESCRIPTION=%27${value1}%27&outputFormat=application%2Fjson`;
-      break;
-    default:
-      url = '';
+
+  if (isEmpty(fireStatus) && isEmpty(fireCause) && isEmpty(geoDesc)) {
+    url = 'https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&outputFormat=application%2Fjson';
   }
+  if (fireStatus && fireCause) {
+    url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=FIRE_CAUSE%3C%3E%27${fireCause}%27%20AND%20FIRE_STATUS=%27${fireStatus}%27&outputFormat=application%2Fjson`;
+  }
+  if (geoDesc) {
+    url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=GEOGRAPHIC_DESCRIPTION=%27${geoDesc}%27&outputFormat=application%2Fjson`;
+  }
+  if (fireStatus && fireStatus && geoDesc) {
+    url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=FIRE_CAUSE%3C%3E%27${fireCause}%27%20AND%20FIRE_STATUS=%27${fireStatus}%27&GEOGRAPHIC_DESCRIPTION=%27${geoDesc}%27&outputFormat=application%2Fjson`;
+  }
+
   fetch(url).then(response => {
     if (!response.ok) {
       throw new Error('Error');
     }
     return response.json();
   })
-  .then(data => {
-    const listInYear = getListByYear(year, data);
-    setFilterList(listInYear);
-  })
-  .catch(error => {
-    console.error('Fetch error:', error);
-  });
+    .then(data => {
+      const listInYear = getListByYear(year, data);
+      setFilterList(listInYear);
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
 };
 
 const getfilterListInCsvOrTxt = (filterList, isCsv) => {
@@ -68,12 +63,13 @@ const getfilterListInCsvOrTxt = (filterList, isCsv) => {
   document.body.removeChild(link);
 };
 
-const App = props => {
+const App = () => {
   const [filterList, setFilterList] = useState([]);
   const [fireStatus, setFireStatus] = useState('');
   const [fireCause, setFireCause] = useState('');
   const [geoDesc, setGeoDesc] = useState('');
   const [year, setYear] = useState(2023);
+  const [readOnlyView, setReadOnlyView] = useState(false);
   const [readOnlyFireStatus, setReadOnlyFireStatus] = useState(false);
   const [readOnlyFireCause, setReadOnlyFireCause] = useState(false);
   const [readOnlyGeoDesc, setReadOnlyGeoDesc] = useState(false);
@@ -91,6 +87,7 @@ const App = props => {
 
   const handleGeoDescInputChange = (event) => {
     setGeoDesc(event.target.value);
+    setReadOnlyView(false);
     if (isEmpty(event.target.value)) {
       setReadOnlyFireCause(false);
       setReadOnlyFireStatus(false);
@@ -103,18 +100,26 @@ const App = props => {
   const handleFireStatusChange = (event) => {
     setFireStatus(event.target.value);
     if (isEmpty(event.target.value) && isEmpty(fireCause)) {
+      setReadOnlyView(false);
       setReadOnlyGeoDesc(false);
+    } else if (!isEmpty(event.target.value) && fireCause) {
+      setReadOnlyView(false);
     } else {
       setReadOnlyGeoDesc(true);
+      setReadOnlyView(true);
     }
   };
 
   const handleFireCauseChange = (event) => {
     setFireCause(event.target.value);
     if (isEmpty(event.target.value) && isEmpty(fireStatus)) {
+      setReadOnlyView(false);
       setReadOnlyGeoDesc(false);
+    } else if (!isEmpty(event.target.value) && fireStatus) {
+      setReadOnlyView(false);
     } else {
       setReadOnlyGeoDesc(true);
+      setReadOnlyView(true);
     }
   };
 
@@ -124,68 +129,66 @@ const App = props => {
 
   return (
     <div className="App">
-      <h1>Current BC Wildfires Summary</h1>
+      <h1>BC Wildfires Summary</h1>
       <p>B.C. experiences 1,600 wildfires per year, on average. While the majority of these fires are put out before they threaten people, homes and communities, it is important to be prepared, especially if living in an area prone to wildfire.  This website is to monitor the status of these wildfires and act accordingly.</p>
       <section>
         <h2>Please choose your filtering option</h2>
         <label>Fire Status: </label>
-        <select id="fireStatus" name="fireStatus" value={fireStatus} onChange={handleFireStatusChange} disabled={readOnlyFireStatus}>
+        <select disabled={readOnlyFireStatus} id="fireStatus" name="fireStatus" onChange={handleFireStatusChange} value={fireStatus}>
           <option value="">Please select</option>
           <option value="Out">Out</option>
           <option value="Under Control">Under Control</option>
         </select>
-        &nbsp;
+        &nbsp;&nbsp;&nbsp;
         <label>Fire Not Cause By: </label>
-        <select id="fireCause" name="fireCause" value={fireCause} onChange={handleFireCauseChange} disabled={readOnlyFireCause}>
+        <select disabled={readOnlyFireCause} id="fireCause" name="fireCause" onChange={handleFireCauseChange} value={fireCause}>
           <option value="">Please select</option>
           <option value="Lightning">Lightning</option>
           <option value="Person">Person</option>
           <option value="Unknown">Unknown</option>
         </select>
-        &nbsp;
+        &nbsp;&nbsp;&nbsp;
         <label>Geographic Description: </label>
         <input
-          type="text"
+          disabled={readOnlyGeoDesc}
           id="geoDesc"
           name="geoDesc"
-          value={geoDesc}
           onChange={handleGeoDescInputChange}
-          disabled={readOnlyGeoDesc}
+          type="text"
+          value={geoDesc}
         />
-        &nbsp;
+        &nbsp;&nbsp;&nbsp;
         <label>Year: </label>
         <input
-          type="text"
+          disabled={readOnlyYear}
           id="year"
           name="year"
-          value={year}
           onChange={handleYearInputChange}
-          disabled={readOnlyYear}
+          type="text"
+          value={year}
         />
       </section>
       <section>
         <h2>Please choose your view Options</h2>
-        <button onClick={() => getData(setFilterList, filterType.all, year)}>View all wildfires</button>&nbsp;
-        <button disabled={readOnlyFireCause && readOnlyFireStatus} onClick={() => getData(setFilterList, filterType.fireStatusAndFireCause, year, fireStatus, fireCause)}>View all wildfires by fire status and fire cause</button>&nbsp;
-        <button disabled={readOnlyGeoDesc} onClick={() => getData(setFilterList, filterType.geoDesc, year, geoDesc)}>View all wildfires by geogarphic description</button>&nbsp;
-        <button onClick={() => getfilterListInCsvOrTxt(filterList, (csvOrTxt === 'csv'))}>Download into CSV or text file formats</button>&nbsp;
+        <button disabled={readOnlyView} onClick={() => getData(setFilterList, year, fireStatus, fireCause, geoDesc)}>View wildfires</button>&nbsp;
+        <button onClick={() => getfilterListInCsvOrTxt(filterList, (csvOrTxt === 'csv'))}>Download to CSV or text file formats</button>&nbsp;
         <label>
           <input
-            type="radio"
-            name="csvOrTxt"
-            value="csv"
             checked={csvOrTxt === 'csv'}
+            name="csvOrTxt"
             onChange={handleCsvOrTxtChange}
+            type="radio"
+            value="csv"
           />
           Csv
         </label>
         <label>
           <input
-            type="radio"
-            name="csvOrTxt"
-            value="txt"
             checked={csvOrTxt === 'txt'}
+            name="csvOrTxt"
             onChange={handleCsvOrTxtChange}
+            type="radio"
+            value="txt"
           />
           Text
         </label>
@@ -213,7 +216,7 @@ const App = props => {
                     <td>{item?.properties?.FIRE_OUT_DATE}</td>
                     <td>{item?.properties?.FIRE_STATUS}</td>
                     <td>{item?.properties?.FIRE_CAUSE}</td>
-                    <td>{item?.properties?.GEOGRAPHIC_DESCRIPTION}</td>            
+                    <td>{item?.properties?.GEOGRAPHIC_DESCRIPTION}</td>
                   </tr>
                 ))}
               </tbody>

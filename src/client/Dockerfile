@@ -8,6 +8,7 @@ COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 
 # RUN npm install --silent
 RUN npm install --production --silent && mv node_modules ../
+
 # Copy app source code
 COPY . .
 
