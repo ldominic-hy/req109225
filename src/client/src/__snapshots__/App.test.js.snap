@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<div
+  className="App"
+>
+  <h1>
+    Welcome
+  </h1>
+  <div>
+    <label>
+      Fire Status: 
+    </label>
+    <select
+      id="fireStatus"
+      name="fireStatus"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value=""
+      >
+        Please select
+      </option>
+      <option
+        value="Out"
+      >
+        Out
+      </option>
+      <option
+        value="Under Control"
+      >
+        Under Control
+      </option>
+    </select>
+  </div>
+  <div>
+    <label>
+      Fire Not Cause By: 
+    </label>
+    <select
+      id="fireCause"
+      name="fireCause"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value=""
+      >
+        Please select
+      </option>
+      <option
+        value="Lightning"
+      >
+        Lightning
+      </option>
+      <option
+        value="Person"
+      >
+        Person
+      </option>
+      <option
+        value="Unknown"
+      >
+        Unknown
+      </option>
+    </select>
+  </div>
+  <div>
+    <label>
+      Geographic Description: 
+    </label>
+    <input
+      id="geoDesc"
+      name="geoDesc"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </div>
+  <div>
+    <label>
+      Number of items to display: 
+    </label>
+    <input
+      id="count"
+      name="count"
+      onChange={[Function]}
+      type="text"
+      value={0}
+    />
+  </div>
+  <button
+    onClick={[Function]}
+  >
+    View all wildfires from 2023
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    View all wildfires from 2023 by fire status and fire cause
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    View all wildfires from 2023 by geogarphic description
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    Download into CSV or text file formats
+  </button>
+</div>
+`;

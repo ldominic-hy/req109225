@@ -1,0 +1,219 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+      {
+          "type": "Feature",
+          "id": "WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP.C11405",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  1064961.6792,
+                  859469.2254
+              ]
+          },
+          "geometry_name": "SHAPE",
+          "properties": {
+              "FIRE_NUMBER": "C11405",
+              "FIRE_YEAR": 2023,
+              "RESPONSE_TYPE_DESC": "Full",
+              "IGNITION_DATE": "2023-07-09Z",
+              "FIRE_OUT_DATE": "2023-08-28Z",
+              "FIRE_STATUS": "Out",
+              "FIRE_CAUSE": "Lightning",
+              "FIRE_CENTRE": 7,
+              "ZONE": 1,
+              "FIRE_ID": 1405,
+              "FIRE_TYPE": "Fire",
+              "INCIDENT_NAME": "CORKSCREW CREEK",
+              "GEOGRAPHIC_DESCRIPTION": "2.4km NW Corkscrew Creek",
+              "LATITUDE": 52.74,
+              "LONGITUDE": -125.0359,
+              "CURRENT_SIZE": 1282,
+              "FIRE_URL": "https://wildfiresituation.nrs.gov.bc.ca/incidents?fireYear=2023&incidentNumber=C11405",
+              "FEATURE_CODE": "JA70003000",
+              "OBJECTID": 12967636,
+              "SE_ANNO_CAD_DATA": null
+          }
+      },
+      {
+          "type": "Feature",
+          "id": "WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP.R31406",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  896861.2747,
+                  1062103.9423
+              ]
+          },
+          "geometry_name": "SHAPE",
+          "properties": {
+              "FIRE_NUMBER": "R31406",
+              "FIRE_YEAR": 2023,
+              "RESPONSE_TYPE_DESC": "Monitor",
+              "IGNITION_DATE": "2023-07-08Z",
+              "FIRE_OUT_DATE": "2023-09-20Z",
+              "FIRE_STATUS": "Out",
+              "FIRE_CAUSE": "Lightning",
+              "FIRE_CENTRE": 3,
+              "ZONE": 3,
+              "FIRE_ID": 1406,
+              "FIRE_TYPE": "Fire",
+              "INCIDENT_NAME": "R31406",
+              "GEOGRAPHIC_DESCRIPTION": "5 miles SE of Telkwa Pass",
+              "LATITUDE": 54.5495,
+              "LONGITUDE": -127.5984,
+              "CURRENT_SIZE": 0.009,
+              "FIRE_URL": "https://wildfiresituation.nrs.gov.bc.ca/incidents?fireYear=2023&incidentNumber=R31406",
+              "FEATURE_CODE": "JA70003000",
+              "OBJECTID": 12967637,
+              "SE_ANNO_CAD_DATA": null
+          }
+      },
+      {
+          "type": "Feature",
+          "id": "WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP.C11407",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  1064005.403,
+                  862516.5558
+              ]
+          },
+          "geometry_name": "SHAPE",
+          "properties": {
+              "FIRE_NUMBER": "C11407",
+              "FIRE_YEAR": 2024,
+              "RESPONSE_TYPE_DESC": "Full",
+              "IGNITION_DATE": "2023-07-09Z",
+              "FIRE_OUT_DATE": "2023-07-23Z",
+              "FIRE_STATUS": "Out",
+              "FIRE_CAUSE": "Lightning",
+              "FIRE_CENTRE": 7,
+              "ZONE": 1,
+              "FIRE_ID": 1407,
+              "FIRE_TYPE": "Fire",
+              "INCIDENT_NAME": "C11407",
+              "GEOGRAPHIC_DESCRIPTION": "3.5km W of Pan Creek",
+              "LATITUDE": 52.7675,
+              "LONGITUDE": -125.0495,
+              "CURRENT_SIZE": 0.009,
+              "FIRE_URL": "https://wildfiresituation.nrs.gov.bc.ca/incidents?fireYear=2023&incidentNumber=C11407",
+              "FEATURE_CODE": "JA70003000",
+              "OBJECTID": 12967638,
+              "SE_ANNO_CAD_DATA": null
+          }
+      },
+      {
+          "type": "Feature",
+          "id": "WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP.G51411",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  1041055.9953,
+                  1148122.4192
+              ]
+          },
+          "geometry_name": "SHAPE",
+          "properties": {
+              "FIRE_NUMBER": "G51411",
+              "FIRE_YEAR": 2023,
+              "RESPONSE_TYPE_DESC": "Full",
+              "IGNITION_DATE": "2023-07-09Z",
+              "FIRE_OUT_DATE": null,
+              "FIRE_STATUS": "Under Control",
+              "FIRE_CAUSE": "Lightning",
+              "FIRE_CENTRE": 4,
+              "ZONE": 5,
+              "FIRE_ID": 1411,
+              "FIRE_TYPE": "Fire",
+              "INCIDENT_NAME": "ALBERT LAKE",
+              "GEOGRAPHIC_DESCRIPTION": "Albert Lake",
+              "LATITUDE": 55.3288,
+              "LONGITUDE": -125.3514,
+              "CURRENT_SIZE": 451.6,
+              "FIRE_URL": "https://wildfiresituation.nrs.gov.bc.ca/incidents?fireYear=2023&incidentNumber=G51411",
+              "FEATURE_CODE": "JA70003000",
+              "OBJECTID": 12967639,
+              "SE_ANNO_CAD_DATA": null
+          }
+      },
+      {
+          "type": "Feature",
+          "id": "WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP.C21408",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  1250176.7768,
+                  833736.7484
+              ]
+          },
+          "geometry_name": "SHAPE",
+          "properties": {
+              "FIRE_NUMBER": "C21408",
+              "FIRE_YEAR": 2024,
+              "RESPONSE_TYPE_DESC": "Full",
+              "IGNITION_DATE": "2023-07-08Z",
+              "FIRE_OUT_DATE": "2023-07-11Z",
+              "FIRE_STATUS": "Out",
+              "FIRE_CAUSE": "Lightning",
+              "FIRE_CENTRE": 7,
+              "ZONE": 2,
+              "FIRE_ID": 1408,
+              "FIRE_TYPE": "Fire",
+              "INCIDENT_NAME": "C21408",
+              "GEOGRAPHIC_DESCRIPTION": "1.5km SW of Ross Lake",
+              "LATITUDE": 52.4548,
+              "LONGITUDE": -122.3102,
+              "CURRENT_SIZE": 0.009,
+              "FIRE_URL": "https://wildfiresituation.nrs.gov.bc.ca/incidents?fireYear=2023&incidentNumber=C21408",
+              "FEATURE_CODE": "JA70003000",
+              "OBJECTID": 12967640,
+              "SE_ANNO_CAD_DATA": null
+          }
+      },
+      {
+          "type": "Feature",
+          "id": "WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP.G92279",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  1187350.4971,
+                  1473949.2217
+              ]
+          },
+          "geometry_name": "SHAPE",
+          "properties": {
+              "FIRE_NUMBER": "G92279",
+              "FIRE_YEAR": 2023,
+              "RESPONSE_TYPE_DESC": "Full",
+              "IGNITION_DATE": "2023-06-16Z",
+              "FIRE_OUT_DATE": "2023-07-30Z",
+              "FIRE_STATUS": "Out",
+              "FIRE_CAUSE": "Lightning",
+              "FIRE_CENTRE": 4,
+              "ZONE": 9,
+              "FIRE_ID": 2279,
+              "FIRE_TYPE": "Fire",
+              "INCIDENT_NAME": null,
+              "GEOGRAPHIC_DESCRIPTION": "West of Parker Creek",
+              "LATITUDE": 58.2135,
+              "LONGITUDE": -122.8104,
+              "CURRENT_SIZE": 0.1,
+              "FIRE_URL": "https://wildfiresituation.nrs.gov.bc.ca/incidents?fireYear=2023&incidentNumber=G92279",
+              "FEATURE_CODE": "JA70003000",
+              "OBJECTID": 12968290,
+              "SE_ANNO_CAD_DATA": null
+          }
+      }
+    ],
+    "totalFeatures": 2261,
+    "numberMatched": 2261,
+    "numberReturned": 2261,
+    "timeStamp": "2024-03-10T23:30:48.244Z",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:EPSG::3005"
+        }
+    }
+}
