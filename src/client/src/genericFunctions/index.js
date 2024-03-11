@@ -1,0 +1,1 @@
+export { getListByYear } from './getListByYear';
