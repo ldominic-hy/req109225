@@ -19,7 +19,7 @@ You may also see any lint errors in the console.
 
 ### `npm run lint`
 
-Launches es lint and display syntax errors to fix.\
+Launches es lint and display syntax errors to fix.
 
 ### `npm run test`
 
