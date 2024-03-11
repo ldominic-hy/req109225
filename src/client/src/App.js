@@ -31,13 +31,13 @@ const getData = (setFilterList, filterBy, year, value1, value2) => {
     }
     return response.json();
   })
-  .then(data => {
-    const listInYear = getListByYear(year, data);
-    setFilterList(listInYear);
-  })
-  .catch(error => {
-    console.error('Fetch error:', error);
-  });
+    .then(data => {
+      const listInYear = getListByYear(year, data);
+      setFilterList(listInYear);
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
 };
 
 const getfilterListInCsvOrTxt = (filterList, isCsv) => {
@@ -68,7 +68,7 @@ const getfilterListInCsvOrTxt = (filterList, isCsv) => {
   document.body.removeChild(link);
 };
 
-const App = props => {
+const App = () => {
   const [filterList, setFilterList] = useState([]);
   const [fireStatus, setFireStatus] = useState('');
   const [fireCause, setFireCause] = useState('');
@@ -124,19 +124,19 @@ const App = props => {
 
   return (
     <div className="App">
-      <h1>Current BC Wildfires Summary</h1>
+      <h1>BC Wildfires Summary</h1>
       <p>B.C. experiences 1,600 wildfires per year, on average. While the majority of these fires are put out before they threaten people, homes and communities, it is important to be prepared, especially if living in an area prone to wildfire.  This website is to monitor the status of these wildfires and act accordingly.</p>
       <section>
         <h2>Please choose your filtering option</h2>
         <label>Fire Status: </label>
-        <select id="fireStatus" name="fireStatus" value={fireStatus} onChange={handleFireStatusChange} disabled={readOnlyFireStatus}>
+        <select disabled={readOnlyFireStatus} id="fireStatus" name="fireStatus" onChange={handleFireStatusChange} value={fireStatus}>
           <option value="">Please select</option>
           <option value="Out">Out</option>
           <option value="Under Control">Under Control</option>
         </select>
         &nbsp;
         <label>Fire Not Cause By: </label>
-        <select id="fireCause" name="fireCause" value={fireCause} onChange={handleFireCauseChange} disabled={readOnlyFireCause}>
+        <select disabled={readOnlyFireCause} id="fireCause" name="fireCause" onChange={handleFireCauseChange} value={fireCause}>
           <option value="">Please select</option>
           <option value="Lightning">Lightning</option>
           <option value="Person">Person</option>
@@ -145,22 +145,22 @@ const App = props => {
         &nbsp;
         <label>Geographic Description: </label>
         <input
-          type="text"
+          disabled={readOnlyGeoDesc}
           id="geoDesc"
           name="geoDesc"
-          value={geoDesc}
           onChange={handleGeoDescInputChange}
-          disabled={readOnlyGeoDesc}
+          type="text"
+          value={geoDesc}
         />
         &nbsp;
         <label>Year: </label>
         <input
-          type="text"
+          disabled={readOnlyYear}
           id="year"
           name="year"
-          value={year}
           onChange={handleYearInputChange}
-          disabled={readOnlyYear}
+          type="text"
+          value={year}
         />
       </section>
       <section>
@@ -171,21 +171,21 @@ const App = props => {
         <button onClick={() => getfilterListInCsvOrTxt(filterList, (csvOrTxt === 'csv'))}>Download into CSV or text file formats</button>&nbsp;
         <label>
           <input
-            type="radio"
-            name="csvOrTxt"
-            value="csv"
             checked={csvOrTxt === 'csv'}
+            name="csvOrTxt"
             onChange={handleCsvOrTxtChange}
+            type="radio"
+            value="csv"
           />
           Csv
         </label>
         <label>
           <input
-            type="radio"
-            name="csvOrTxt"
-            value="txt"
             checked={csvOrTxt === 'txt'}
+            name="csvOrTxt"
             onChange={handleCsvOrTxtChange}
+            type="radio"
+            value="txt"
           />
           Text
         </label>
@@ -213,7 +213,7 @@ const App = props => {
                     <td>{item?.properties?.FIRE_OUT_DATE}</td>
                     <td>{item?.properties?.FIRE_STATUS}</td>
                     <td>{item?.properties?.FIRE_CAUSE}</td>
-                    <td>{item?.properties?.GEOGRAPHIC_DESCRIPTION}</td>            
+                    <td>{item?.properties?.GEOGRAPHIC_DESCRIPTION}</td>
                   </tr>
                 ))}
               </tbody>

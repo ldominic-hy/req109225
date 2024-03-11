@@ -5,7 +5,7 @@ exports[`renders learn react link 1`] = `
   className="App"
 >
   <h1>
-    Current BC Wildfires Summary
+    BC Wildfires Summary
   </h1>
   <p>
     B.C. experiences 1,600 wildfires per year, on average. While the majority of these fires are put out before they threaten people, homes and communities, it is important to be prepared, especially if living in an area prone to wildfire.  This website is to monitor the status of these wildfires and act accordingly.
