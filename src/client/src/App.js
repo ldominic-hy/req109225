@@ -4,27 +4,22 @@ import './App.css';
 
 import { getListByYear } from './genericFunctions';
 
-const filterType = {
-  all: 'ALL',
-  geoDesc: 'GEOGRAPHIC_DESCRIPTION',
-  fireStatusAndFireCause: 'FIRE_STATUS_AND_FIRE_CAUSE',
-};
-
-const getData = (setFilterList, filterBy, year, value1, value2) => {
+const getData = (setFilterList, year, fireStatus, fireCause, geoDesc) => {
   let url;
-  switch (filterBy) {
-    case filterType.all:
-      url = 'https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&outputFormat=application%2Fjson';
-      break;
-    case filterType.fireStatusAndFireCause:
-      url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=FIRE_CAUSE%3C%3E%27${value2}%27%20AND%20FIRE_STATUS=%27${value1}%27&outputFormat=application%2Fjson`;
-      break;
-    case filterType.geoDesc:
-      url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=GEOGRAPHIC_DESCRIPTION=%27${value1}%27&outputFormat=application%2Fjson`;
-      break;
-    default:
-      url = '';
+
+  if (isEmpty(fireStatus) && isEmpty(fireCause) && isEmpty(geoDesc)) {
+    url = 'https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&outputFormat=application%2Fjson';
   }
+  if (fireStatus && fireCause) {
+    url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=FIRE_CAUSE%3C%3E%27${fireCause}%27%20AND%20FIRE_STATUS=%27${fireStatus}%27&outputFormat=application%2Fjson`;
+  }
+  if (geoDesc) {
+    url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=GEOGRAPHIC_DESCRIPTION=%27${geoDesc}%27&outputFormat=application%2Fjson`;
+  }
+  if (fireStatus && fireStatus && geoDesc) {
+    url = `https://openmaps.gov.bc.ca/geo/pub/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=pub:WHSE_LAND_AND_NATURAL_RESOURCE.PROT_CURRENT_FIRE_PNTS_SP&cql_filter=FIRE_CAUSE%3C%3E%27${fireCause}%27%20AND%20FIRE_STATUS=%27${fireStatus}%27&GEOGRAPHIC_DESCRIPTION=%27${geoDesc}%27&outputFormat=application%2Fjson`;
+  }
+
   fetch(url).then(response => {
     if (!response.ok) {
       throw new Error('Error');
@@ -74,6 +69,7 @@ const App = () => {
   const [fireCause, setFireCause] = useState('');
   const [geoDesc, setGeoDesc] = useState('');
   const [year, setYear] = useState(2023);
+  const [readOnlyView, setReadOnlyView] = useState(false);
   const [readOnlyFireStatus, setReadOnlyFireStatus] = useState(false);
   const [readOnlyFireCause, setReadOnlyFireCause] = useState(false);
   const [readOnlyGeoDesc, setReadOnlyGeoDesc] = useState(false);
@@ -91,6 +87,7 @@ const App = () => {
 
   const handleGeoDescInputChange = (event) => {
     setGeoDesc(event.target.value);
+    setReadOnlyView(false);
     if (isEmpty(event.target.value)) {
       setReadOnlyFireCause(false);
       setReadOnlyFireStatus(false);
@@ -103,18 +100,26 @@ const App = () => {
   const handleFireStatusChange = (event) => {
     setFireStatus(event.target.value);
     if (isEmpty(event.target.value) && isEmpty(fireCause)) {
+      setReadOnlyView(false);
       setReadOnlyGeoDesc(false);
+    } else if (!isEmpty(event.target.value) && fireCause) {
+      setReadOnlyView(false);
     } else {
       setReadOnlyGeoDesc(true);
+      setReadOnlyView(true);
     }
   };
 
   const handleFireCauseChange = (event) => {
     setFireCause(event.target.value);
     if (isEmpty(event.target.value) && isEmpty(fireStatus)) {
+      setReadOnlyView(false);
       setReadOnlyGeoDesc(false);
+    } else if (!isEmpty(event.target.value) && fireStatus) {
+      setReadOnlyView(false);
     } else {
       setReadOnlyGeoDesc(true);
+      setReadOnlyView(true);
     }
   };
 
@@ -134,7 +139,7 @@ const App = () => {
           <option value="Out">Out</option>
           <option value="Under Control">Under Control</option>
         </select>
-        &nbsp;
+        &nbsp;&nbsp;&nbsp;
         <label>Fire Not Cause By: </label>
         <select disabled={readOnlyFireCause} id="fireCause" name="fireCause" onChange={handleFireCauseChange} value={fireCause}>
           <option value="">Please select</option>
@@ -142,7 +147,7 @@ const App = () => {
           <option value="Person">Person</option>
           <option value="Unknown">Unknown</option>
         </select>
-        &nbsp;
+        &nbsp;&nbsp;&nbsp;
         <label>Geographic Description: </label>
         <input
           disabled={readOnlyGeoDesc}
@@ -152,7 +157,7 @@ const App = () => {
           type="text"
           value={geoDesc}
         />
-        &nbsp;
+        &nbsp;&nbsp;&nbsp;
         <label>Year: </label>
         <input
           disabled={readOnlyYear}
@@ -165,10 +170,8 @@ const App = () => {
       </section>
       <section>
         <h2>Please choose your view Options</h2>
-        <button onClick={() => getData(setFilterList, filterType.all, year)}>View all wildfires</button>&nbsp;
-        <button disabled={readOnlyFireCause && readOnlyFireStatus} onClick={() => getData(setFilterList, filterType.fireStatusAndFireCause, year, fireStatus, fireCause)}>View all wildfires by fire status and fire cause</button>&nbsp;
-        <button disabled={readOnlyGeoDesc} onClick={() => getData(setFilterList, filterType.geoDesc, year, geoDesc)}>View all wildfires by geogarphic description</button>&nbsp;
-        <button onClick={() => getfilterListInCsvOrTxt(filterList, (csvOrTxt === 'csv'))}>Download into CSV or text file formats</button>&nbsp;
+        <button disabled={readOnlyView} onClick={() => getData(setFilterList, year, fireStatus, fireCause, geoDesc)}>View wildfires</button>&nbsp;
+        <button onClick={() => getfilterListInCsvOrTxt(filterList, (csvOrTxt === 'csv'))}>Download to CSV or text file formats</button>&nbsp;
         <label>
           <input
             checked={csvOrTxt === 'csv'}

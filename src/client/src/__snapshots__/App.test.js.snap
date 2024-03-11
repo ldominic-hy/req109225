@@ -40,7 +40,7 @@ exports[`renders learn react link 1`] = `
         Under Control
       </option>
     </select>
-     
+       
     <label>
       Fire Not Cause By: 
     </label>
@@ -72,7 +72,7 @@ exports[`renders learn react link 1`] = `
         Unknown
       </option>
     </select>
-     
+       
     <label>
       Geographic Description: 
     </label>
@@ -84,7 +84,7 @@ exports[`renders learn react link 1`] = `
       type="text"
       value=""
     />
-     
+       
     <label>
       Year: 
     </label>
@@ -102,29 +102,16 @@ exports[`renders learn react link 1`] = `
       Please choose your view Options
     </h2>
     <button
-      onClick={[Function]}
-    >
-      View all wildfires
-    </button>
-     
-    <button
       disabled={false}
       onClick={[Function]}
     >
-      View all wildfires by fire status and fire cause
-    </button>
-     
-    <button
-      disabled={false}
-      onClick={[Function]}
-    >
-      View all wildfires by geogarphic description
+      View wildfires
     </button>
      
     <button
       onClick={[Function]}
     >
-      Download into CSV or text file formats
+      Download to CSV or text file formats
     </button>
      
     <label>
