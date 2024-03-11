@@ -12,6 +12,11 @@ th {
   background-color: #f2f2f2;
 }
 
+p {
+  text-align: left;
+  padding-left: 20px;
+}
+
 .App {
   text-align: center;
 }

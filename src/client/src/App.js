@@ -114,16 +114,17 @@ const App = props => {
 
   return (
     <div className="App">
-      <h1>BC Wildfires Summary</h1>
-      <div>
+      <h1>BC Wildfires Summary in 2023</h1>
+      <p>B.C. experiences 1,600 wildfires per year, on average. While the majority of these fires are put out before they threaten people, homes and communities, it is important to be prepared, especially if living in an area prone to wildfire.  This website is to monitor the status of these wildfires and act accordingly.</p>
+      <section>
+        <h2>Please choose your filtering option</h2>
         <label>Fire Status: </label>
         <select id="fireStatus" name="fireStatus" value={fireStatus} onChange={handleFireStatusChange} disabled={readOnlyFireStatus}>
           <option value="">Please select</option>
           <option value="Out">Out</option>
           <option value="Under Control">Under Control</option>
         </select>
-      </div>
-      <div>
+        &nbsp;
         <label>Fire Not Cause By: </label>
         <select id="fireCause" name="fireCause" value={fireCause} onChange={handleFireCauseChange} disabled={readOnlyFireCause}>
           <option value="">Please select</option>
@@ -131,8 +132,7 @@ const App = props => {
           <option value="Person">Person</option>
           <option value="Unknown">Unknown</option>
         </select>
-      </div>
-      <div>
+        &nbsp;
         <label>Geographic Description: </label>
         <input
           type="text"
@@ -142,18 +142,13 @@ const App = props => {
           onChange={handleGeoDescInputChange}
           disabled={readOnlyGeoDesc}
         />
-      </div>
-      <div>
-        <button onClick={() => getData(setFilterList, filterType.all)}>View all wildfires from 2023</button>
-      </div>
-      <div>
-        <button disabled={readOnlyFireCause && readOnlyFireStatus} onClick={() => getData(setFilterList, filterType.fireStatusAndFireCause, fireStatus, fireCause)}>View all wildfires from 2023 by fire status and fire cause</button>
-      </div>
-      <div>
-        <button disabled={readOnlyGeoDesc} onClick={() => getData(setFilterList, filterType.geoDesc, geoDesc)}>View all wildfires from 2023 by geogarphic description</button>
-      </div>
-      <div>
-        <button onClick={() => getfilterListInCsvOrTxt(filterList, (csvOrTxt === 'csv'))}>Download into CSV or text file formats</button>
+      </section>
+      <section>
+        <h2>Please choose your view Options</h2>
+        <button onClick={() => getData(setFilterList, filterType.all)}>View all wildfires from 2023</button>&nbsp;
+        <button disabled={readOnlyFireCause && readOnlyFireStatus} onClick={() => getData(setFilterList, filterType.fireStatusAndFireCause, fireStatus, fireCause)}>View all wildfires from 2023 by fire status and fire cause</button>&nbsp;
+        <button disabled={readOnlyGeoDesc} onClick={() => getData(setFilterList, filterType.geoDesc, geoDesc)}>View all wildfires from 2023 by geogarphic description</button>&nbsp;
+        <button onClick={() => getfilterListInCsvOrTxt(filterList, (csvOrTxt === 'csv'))}>Download into CSV or text file formats</button>&nbsp;
         <label>
           <input
             type="radio"
@@ -174,35 +169,38 @@ const App = props => {
           />
           Text
         </label>
-      </div>
-      {filterList && filterList.length > 0 &&
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Fire Number</th>
-                <th>Ignition Date</th>
-                <th>Fire Out Date</th>
-                <th>Fire Status</th>
-                <th>Fire Cause</th>
-                <th>Geographic Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filterList.map(item => (
+      </section>
+      <section>
+        {filterList && filterList.length > 0 &&
+          <div>
+            <h2>Summary Table</h2>
+            <table>
+              <thead>
                 <tr>
-                  <td>{item?.properties?.FIRE_NUMBER}</td>
-                  <td>{item?.properties?.IGNITION_DATE}</td>
-                  <td>{item?.properties?.FIRE_OUT_DATE}</td>
-                  <td>{item?.properties?.FIRE_STATUS}</td>
-                  <td>{item?.properties?.FIRE_CAUSE}</td>
-                  <td>{item?.properties?.GEOGRAPHIC_DESCRIPTION}</td>            
+                  <th>Fire Number</th>
+                  <th>Ignition Date</th>
+                  <th>Fire Out Date</th>
+                  <th>Fire Status</th>
+                  <th>Fire Cause</th>
+                  <th>Geographic Description</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      }
+              </thead>
+              <tbody>
+                {filterList.map(item => (
+                  <tr>
+                    <td>{item?.properties?.FIRE_NUMBER}</td>
+                    <td>{item?.properties?.IGNITION_DATE}</td>
+                    <td>{item?.properties?.FIRE_OUT_DATE}</td>
+                    <td>{item?.properties?.FIRE_STATUS}</td>
+                    <td>{item?.properties?.FIRE_CAUSE}</td>
+                    <td>{item?.properties?.GEOGRAPHIC_DESCRIPTION}</td>            
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        }
+      </section>
     </div>
   );
 };

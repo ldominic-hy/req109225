@@ -5,9 +5,15 @@ exports[`renders learn react link 1`] = `
   className="App"
 >
   <h1>
-    BC Wildfires Summary
+    BC Wildfires Summary in 2023
   </h1>
-  <div>
+  <p>
+    B.C. experiences 1,600 wildfires per year, on average. While the majority of these fires are put out before they threaten people, homes and communities, it is important to be prepared, especially if living in an area prone to wildfire.  This website is to monitor the status of these wildfires and act accordingly.
+  </p>
+  <section>
+    <h2>
+      Please choose your filtering option
+    </h2>
     <label>
       Fire Status: 
     </label>
@@ -34,8 +40,7 @@ exports[`renders learn react link 1`] = `
         Under Control
       </option>
     </select>
-  </div>
-  <div>
+     
     <label>
       Fire Not Cause By: 
     </label>
@@ -67,8 +72,7 @@ exports[`renders learn react link 1`] = `
         Unknown
       </option>
     </select>
-  </div>
-  <div>
+     
     <label>
       Geographic Description: 
     </label>
@@ -80,36 +84,37 @@ exports[`renders learn react link 1`] = `
       type="text"
       value=""
     />
-  </div>
-  <div>
+  </section>
+  <section>
+    <h2>
+      Please choose your view Options
+    </h2>
     <button
       onClick={[Function]}
     >
       View all wildfires from 2023
     </button>
-  </div>
-  <div>
+     
     <button
       disabled={false}
       onClick={[Function]}
     >
       View all wildfires from 2023 by fire status and fire cause
     </button>
-  </div>
-  <div>
+     
     <button
       disabled={false}
       onClick={[Function]}
     >
       View all wildfires from 2023 by geogarphic description
     </button>
-  </div>
-  <div>
+     
     <button
       onClick={[Function]}
     >
       Download into CSV or text file formats
     </button>
+     
     <label>
       <input
         checked={true}
@@ -130,6 +135,7 @@ exports[`renders learn react link 1`] = `
       />
       Text
     </label>
-  </div>
+  </section>
+  <section />
 </div>
 `;
