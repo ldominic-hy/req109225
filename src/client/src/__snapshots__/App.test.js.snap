@@ -5,13 +5,14 @@ exports[`renders learn react link 1`] = `
   className="App"
 >
   <h1>
-    Welcome
+    BC Wildfires Summary
   </h1>
   <div>
     <label>
       Fire Status: 
     </label>
     <select
+      disabled={false}
       id="fireStatus"
       name="fireStatus"
       onChange={[Function]}
@@ -39,6 +40,7 @@ exports[`renders learn react link 1`] = `
       Fire Not Cause By: 
     </label>
     <select
+      disabled={false}
       id="fireCause"
       name="fireCause"
       onChange={[Function]}
@@ -71,6 +73,7 @@ exports[`renders learn react link 1`] = `
       Geographic Description: 
     </label>
     <input
+      disabled={false}
       id="geoDesc"
       name="geoDesc"
       onChange={[Function]}
@@ -79,36 +82,54 @@ exports[`renders learn react link 1`] = `
     />
   </div>
   <div>
-    <label>
-      Number of items to display: 
-    </label>
-    <input
-      id="count"
-      name="count"
-      onChange={[Function]}
-      type="text"
-      value={0}
-    />
+    <button
+      onClick={[Function]}
+    >
+      View all wildfires from 2023
+    </button>
   </div>
-  <button
-    onClick={[Function]}
-  >
-    View all wildfires from 2023
-  </button>
-  <button
-    onClick={[Function]}
-  >
-    View all wildfires from 2023 by fire status and fire cause
-  </button>
-  <button
-    onClick={[Function]}
-  >
-    View all wildfires from 2023 by geogarphic description
-  </button>
-  <button
-    onClick={[Function]}
-  >
-    Download into CSV or text file formats
-  </button>
+  <div>
+    <button
+      disabled={false}
+      onClick={[Function]}
+    >
+      View all wildfires from 2023 by fire status and fire cause
+    </button>
+  </div>
+  <div>
+    <button
+      disabled={false}
+      onClick={[Function]}
+    >
+      View all wildfires from 2023 by geogarphic description
+    </button>
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+    >
+      Download into CSV or text file formats
+    </button>
+    <label>
+      <input
+        checked={true}
+        name="csvOrTxt"
+        onChange={[Function]}
+        type="radio"
+        value="csv"
+      />
+      Csv
+    </label>
+    <label>
+      <input
+        checked={false}
+        name="csvOrTxt"
+        onChange={[Function]}
+        type="radio"
+        value="txt"
+      />
+      Text
+    </label>
+  </div>
 </div>
 `;
