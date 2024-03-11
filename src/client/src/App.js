@@ -10,7 +10,7 @@ const filterType = {
   fireStatusAndFireCause: 'FIRE_STATUS_AND_FIRE_CAUSE',
 };
 
-const getData = (setFilterList, filterBy, value1, value2) => {
+const getData = (setFilterList, filterBy, year, value1, value2) => {
   let url;
   switch (filterBy) {
     case filterType.all:
@@ -32,8 +32,8 @@ const getData = (setFilterList, filterBy, value1, value2) => {
     return response.json();
   })
   .then(data => {
-    const listIn2023 = getListByYear(2023, data);
-    setFilterList(listIn2023);
+    const listInYear = getListByYear(year, data);
+    setFilterList(listInYear);
   })
   .catch(error => {
     console.error('Fetch error:', error);
@@ -58,10 +58,9 @@ const getfilterListInCsvOrTxt = (filterList, isCsv) => {
   });
 
   const csvContent = csvData.map(row => row.join(',')).join('\n');
-
   const blob = isCsv? new Blob([csvContent], { type: 'text/csv' }) : new Blob([csvContent], { type: 'text/plain' });
-
   const link = document.createElement('a');
+
   link.href = URL.createObjectURL(blob);
   link.download = isCsv? 'wildFiresData.csv' : 'wildFiresData.txt';
   document.body.appendChild(link);
@@ -74,10 +73,21 @@ const App = props => {
   const [fireStatus, setFireStatus] = useState('');
   const [fireCause, setFireCause] = useState('');
   const [geoDesc, setGeoDesc] = useState('');
+  const [year, setYear] = useState(2023);
   const [readOnlyFireStatus, setReadOnlyFireStatus] = useState(false);
   const [readOnlyFireCause, setReadOnlyFireCause] = useState(false);
   const [readOnlyGeoDesc, setReadOnlyGeoDesc] = useState(false);
+  const [readOnlyYear, setReadOnlyYear] = useState(true);
   const [csvOrTxt, setCsvOrTxt] = useState('csv');
+
+  const handleYearInputChange = (event) => {
+    setYear(event.target.value);
+    if (isEmpty(fireStatus) && isEmpty(fireCause) && isEmpty(geoDesc)) {
+      setReadOnlyYear(false);
+    } else {
+      setReadOnlyYear(true);
+    }
+  };
 
   const handleGeoDescInputChange = (event) => {
     setGeoDesc(event.target.value);
@@ -114,7 +124,7 @@ const App = props => {
 
   return (
     <div className="App">
-      <h1>BC Wildfires Summary in 2023</h1>
+      <h1>Current BC Wildfires Summary</h1>
       <p>B.C. experiences 1,600 wildfires per year, on average. While the majority of these fires are put out before they threaten people, homes and communities, it is important to be prepared, especially if living in an area prone to wildfire.  This website is to monitor the status of these wildfires and act accordingly.</p>
       <section>
         <h2>Please choose your filtering option</h2>
@@ -142,12 +152,22 @@ const App = props => {
           onChange={handleGeoDescInputChange}
           disabled={readOnlyGeoDesc}
         />
+        &nbsp;
+        <label>Year: </label>
+        <input
+          type="text"
+          id="year"
+          name="year"
+          value={year}
+          onChange={handleYearInputChange}
+          disabled={readOnlyYear}
+        />
       </section>
       <section>
         <h2>Please choose your view Options</h2>
-        <button onClick={() => getData(setFilterList, filterType.all)}>View all wildfires from 2023</button>&nbsp;
-        <button disabled={readOnlyFireCause && readOnlyFireStatus} onClick={() => getData(setFilterList, filterType.fireStatusAndFireCause, fireStatus, fireCause)}>View all wildfires from 2023 by fire status and fire cause</button>&nbsp;
-        <button disabled={readOnlyGeoDesc} onClick={() => getData(setFilterList, filterType.geoDesc, geoDesc)}>View all wildfires from 2023 by geogarphic description</button>&nbsp;
+        <button onClick={() => getData(setFilterList, filterType.all, year)}>View all wildfires</button>&nbsp;
+        <button disabled={readOnlyFireCause && readOnlyFireStatus} onClick={() => getData(setFilterList, filterType.fireStatusAndFireCause, year, fireStatus, fireCause)}>View all wildfires by fire status and fire cause</button>&nbsp;
+        <button disabled={readOnlyGeoDesc} onClick={() => getData(setFilterList, filterType.geoDesc, year, geoDesc)}>View all wildfires by geogarphic description</button>&nbsp;
         <button onClick={() => getfilterListInCsvOrTxt(filterList, (csvOrTxt === 'csv'))}>Download into CSV or text file formats</button>&nbsp;
         <label>
           <input
